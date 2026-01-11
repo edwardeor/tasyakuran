@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edward & Sevira - Wedding Invitation</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,600&family=Montserrat:wght@200;300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@200;300;400;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --glass: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --text-main: #4a4a4a;
+            --rose-accent: #d4a5a9; 
+            --rose-dark: #b88d92;
+            /* Warna Hijau Sage */
+            --green-accent: #8da290; 
+            --green-dark: #6b7f6d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            background: #fffafa;
+            background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), 
+                              url('assets/bg.png'); 
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-main);
+            overflow-x: hidden;
+        }
+
+        /* --- DEKORASI BUNGA 4 SUDUT --- */
+        .rose-decoration {
+            position: fixed;
+            z-index: 1001; 
+            pointer-events: none; 
+            width: 220px;
+            opacity: 0.9;
+        }
+
+        .rose-top-right { top: -45px; right: -45px; transform: rotate(0deg); }
+        .rose-top-left { top: -45px; left: -45px; transform: scaleX(-1) rotate(0deg); }
+        .rose-bottom-right { bottom: -45px; right: -45px; transform: scaleX(-1) rotate(180deg); }
+        .rose-bottom-left { bottom: -45px; left: -45px; transform: rotate(180deg); }
+
+        /* --- OVERLAY --- */
+        #overlay {
+            position: fixed; inset: 0; 
+            background: white;
+            background-image: radial-gradient(circle at center, #ffffff 0%, #fffbfb 100%);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            z-index: 2000; 
+            transition: transform 0.9s cubic-bezier(0.85, 0, 0.15, 1);
+        }
+
+        .glass-card-invitation {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            padding: 50px 40px;
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.05);
+            animation: floating 3s ease-in-out infinite;
+            max-width: 90%;
+        }
+
+        .monogram {
+            font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--rose-accent);
+            border: 1px solid var(--rose-accent); width: 100px; height: 100px;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 30px; border-radius: 50%; font-style: italic;
+        }
+
+        #nama-tamu-depan { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 20px; color: #333; }
+
+        .btn-enter {
+            margin-top: 10px; background: transparent; border: 1px solid var(--green-accent);
+            color: var(--green-accent); padding: 12px 35px; font-family: 'Montserrat', sans-serif;
+            font-weight: 600; font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+            cursor: pointer; transition: 0.4s;
+        }
+        .btn-enter:hover { background: var(--green-accent); color: white; }
+
+        /* --- DASHBOARD GRID --- */
+        .start-screen {
+            max-width: 1000px; margin: 60px auto; padding: 20px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px;
+            position: relative; z-index: 10;
+        }
+
+        .tile { 
+            background: var(--glass); backdrop-filter: blur(8px); border: 1px solid var(--glass-border);
+            padding: 25px 20px; display: flex; flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.03); transition: 0.3s ease;
+            text-align: center;
+        }
+        .tile:hover { transform: scale(1.02); background: #fff; }
+
+        .wide { grid-column: span 2; }
+        .large { grid-column: span 2; grid-row: span 2; min-height: 350px; justify-content: center; } 
+        
+        h2 { 
+            font-family: 'Montserrat', sans-serif; font-size: 0.75rem; letter-spacing: 3px; 
+            text-transform: uppercase; color: var(--green-accent);
+            margin-bottom: 15px; 
+            font-weight: 700; text-align: center;
+        }
+        .val { font-family: 'Playfair Display', serif; font-size: 2.1rem; color: #2d2d2d; line-height: 1.3; }
+
+        /* FORM & BUTTONS */
+        .form-win input, .form-win textarea { 
+            width: 100%; background: #fff; border: 1px solid #efefef; 
+            padding: 12px; margin-bottom: 10px; font-family: inherit; font-size: 0.85rem; 
+            text-align: center;
+        }
+        
+        .btn-send { 
+            background: var(--green-accent); color: white; border: none; padding: 12px; 
+            cursor: pointer; text-transform: uppercase; font-size: 0.8rem; font-weight: 600; 
+            width: 100%; transition: 0.3s; 
+        }
+
+        .btn-send:hover { background: var(--green-dark); }
+
+        .log-container { 
+            background: rgba(255,255,255,0.5); height: 200px; overflow-y: auto; 
+            padding: 15px; font-size: 0.85rem; border: 1px solid #f5f5f5; 
+        }
+        .log-item { 
+            margin-bottom: 15px; border-bottom: 1px solid #f0f0f0; 
+            padding-bottom: 10px; text-align: center;
+        }
+
+        @keyframes floating { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-15px); } }
+
+        @media (max-width: 600px) {
+            .start-screen { grid-template-columns: repeat(2, 1fr); }
+            .wide-mobile { grid-column: span 2; }
+            .rose-decoration { width: 180px; } 
+            #nama-tamu-depan { font-size: 1.8rem; }
+            .val { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+    </audio>
+
+    <img src="assets/rose.png" class="rose-decoration rose-top-right" alt="Rose">
+    <img src="assets/rose.png" class="rose-decoration rose-top-left" alt="Rose">
+    <img src="assets/rose.png" class="rose-decoration rose-bottom-right" alt="Rose">
+    <img src="assets/rose.png" class="rose-decoration rose-bottom-left" alt="Rose">
+
+    <div id="overlay">
+        <div class="glass-card-invitation">
+            <div class="monogram">E&S</div>
+            <p style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: #bbb; text-transform: uppercase; margin-bottom: 10px;">The Wedding Invitation</p>
+            <h1 id="nama-tamu-depan">Tamu Undangan</h1>
+            <button class="btn-enter" onclick="startInvitation()">Buka Undangan</button>
+        </div>
+    </div>
+
+    <div class="start-screen">
+        <div class="tile wide">
+            <h2>Assalamu’alaikum Wr. Wb</h2>
+            <p style="font-weight: 300; font-size: 1.1rem; line-height: 1.8; color: #666;">
+                Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Kami bermaksud mengundang Bapak / Ibu / Saudara / i untuk menghadiri acara tasyakuran pernikahan putra dan putri kami.
+            </p>
+        </div>
+
+        <div class="tile large">
+            <h2>Mempelai</h2>
+            <div class="val" style="font-size: 1.8rem;">Edward Osmar Risqi</div>
+            <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">Putra dari Bapak Dwi Kuswanto (Alm) & Ibu Yuny Isnaenie</p>
+            <span style="font-size: 1.2rem; font-style: italic; color: var(--rose-accent);">dan</span>
+            <div class="val" style="font-size: 1.8rem;">Sevira Insani Amalia</div>
+            <p style="font-size: 0.8rem; color: #888;">Putri dari Bapak Estu Karyawanto & Ibu Laminingsih</p>
+        </div>
+
+        <div class="tile wide wide-mobile">
+            <h2>Akad Nikah</h2>
+            <p style="font-size: 1.1rem; color: #222; font-weight: 600; font-family: 'Montserrat', sans-serif;">Jumat, 6 Februari 2026</p>
+            <p style="font-size: 1.0rem; color: #333; margin-top: 5px;">08:00 - 09:00 WIB</p>
+            <hr style="margin: 15px auto; width: 50%; border: 0.5px solid #eee;">
+            <p style="font-size: 1.0rem; color: #222; font-weight: 600;">Rumah Mempelai Wanita</p>
+            <p style="font-size: 0.85rem; color: #888; margin-top: 4px;">Jl. KH. Wahid Hasyim Gg. Semboja No. 5 Kauman Batang</p>
+            <a href="https://maps.app.goo.gl/A3xn9mfeN5F44NeS6" target="_blank" style="text-decoration: none; display: block; margin-top: 15px; color: var(--green-accent); font-weight: bold; font-size: 0.75rem; letter-spacing: 2px;">BUKA MAPS →</a>
+        </div>
+
+        <div class="tile wide wide-mobile">
+            <h2>Tasyakuran</h2>
+            <p style="font-size: 1.1rem; color: #222; font-weight: 600; font-family: 'Montserrat', sans-serif;">Sabtu, 7 Februari 2026</p>
+            <p style="font-size: 1.0rem; color: #333; margin-top: 5px;">11:00 WIB - Selesai</p>
+            <hr style="margin: 15px auto; width: 50%; border: 0.5px solid #eee;">
+            <p style="font-size: 1.0rem; color: #222; font-weight: 600;">Rumah Mempelai Pria</p>
+            <p style="font-size: 0.85rem; color: #888; margin-top: 4px;">Jl. Dr. Sutomo Gg. Damar RT 2/RW 3 No 201 Watesalit Batang</p>
+            <a href="https://maps.app.goo.gl/qH7YdYkLSWEdBtxU8" target="_blank" style="text-decoration: none; display: block; margin-top: 15px; color: var(--green-accent); font-weight: bold; font-size: 0.75rem; letter-spacing: 2px;">BUKA MAPS →</a>
+        </div>
+
+        <div class="tile wide wide-mobile">
+            <h2>Kirim Doa Restu</h2>
+            <div class="form-win">
+                <input type="text" id="name" placeholder="Nama Anda">
+                <textarea id="msg" rows="3" placeholder="Tulis ucapan..."></textarea>
+                <button class="btn-send" onclick="submitMsg()">Kirim Ucapan</button>
+            </div>
+        </div>
+
+        <div class="tile wide wide-mobile">
+            <h2>Ucapan Tamu</h2>
+            <div id="logContainer" class="log-container">Memuat ucapan...</div>
+        </div>
+    </div>
+
+    <script>
+        const DATABASE_URL = "https://script.google.com/macros/s/AKfycbzlhRyrEBYfHEjx4caBt_ETK7CusM3W08DIavBZVO-76pfruBX-ns86DwoSzec2LyI/exec";
+
+        function startInvitation() {
+            document.getElementById('overlay').style.transform = 'translateY(-100%)';
+            const music = document.getElementById('bgMusic');
+            music.play().catch(error => {
+                console.log("Autoplay dicegah oleh browser. Musik akan diputar setelah interaksi.");
+            });
+            loadLogs();
+        }
+
+        function initGuestName() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const guestName = urlParams.get('to');
+            if (guestName) {
+                const decodedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
+                document.getElementById('nama-tamu-depan').innerText = decodedName;
+                document.getElementById('name').value = decodedName;
+            }
+        }
+
+        async function loadLogs() {
+            const container = document.getElementById('logContainer');
+            try {
+                const response = await fetch(DATABASE_URL);
+                const data = await response.json();
+                if(data.length > 0) {
+                    container.innerHTML = "";
+                    data.reverse().forEach(item => {
+                        const div = document.createElement('div');
+                        div.className = 'log-item';
+                        div.innerHTML = `<b>${item.nama}</b> ${item.ucapan}`;
+                        container.appendChild(div);
+                    });
+                }
+            } catch (e) { container.innerHTML = "Belum ada ucapan."; }
+        }
+
+        async function submitMsg() {
+            const name = document.getElementById('name').value;
+            const msg = document.getElementById('msg').value;
+            const btn = document.querySelector('.btn-send');
+            if(name && msg) {
+                btn.innerText = "Mengirim...";
+                btn.disabled = true;
+                try {
+                    await fetch(DATABASE_URL, { method: 'POST', body: JSON.stringify({ nama: name, ucapan: msg }) });
+                    document.getElementById('msg').value = '';
+                    alert("Ucapan terkirim!");
+                    loadLogs(); 
+                } catch (e) { alert("Gagal mengirim."); } 
+                finally { btn.innerText = 'Kirim Ucapan'; btn.disabled = false; }
+            }
+        }
+
+        window.onload = initGuestName;
+    </script>
+</body>
+</html>
