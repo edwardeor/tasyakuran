@@ -11,17 +11,16 @@
             --glass: rgba(255, 255, 255, 0.85);
             --glass-border: rgba(255, 255, 255, 0.6);
             --text-main: #4a4a4a;
-            --rose-accent: #d4a5a9; 
-            --rose-dark: #b88d92;
-            /* Warna Hijau Sage */
+            /* Tema Hijau Sage */
             --green-accent: #8da290; 
             --green-dark: #6b7f6d;
+            --bg-soft: #f8faf8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         body { 
-            background: #fffafa;
+            background: var(--bg-soft);
             background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), 
                               url('assets/bg.png'); 
             background-attachment: fixed;
@@ -51,7 +50,7 @@
         #overlay {
             position: fixed; inset: 0; 
             background: white;
-            background-image: radial-gradient(circle at center, #ffffff 0%, #fffbfb 100%);
+            background-image: radial-gradient(circle at center, #ffffff 0%, #f9fbf9 100%);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
             z-index: 2000; 
             transition: transform 0.9s cubic-bezier(0.85, 0, 0.15, 1);
@@ -70,13 +69,13 @@
         }
 
         .monogram {
-            font-family: 'Playfair Display', serif; font-size: 3rem; color: var(--rose-accent);
-            border: 1px solid var(--rose-accent); width: 100px; height: 100px;
+            font-family: 'Playfair Display', serif; font-size: 3rem; 
+            color: var(--green-accent); 
+            border: 1px solid var(--green-accent); 
+            width: 250px; height: 250px;
             display: flex; align-items: center; justify-content: center;
             margin: 0 auto 30px; border-radius: 50%; font-style: italic;
         }
-
-        #nama-tamu-depan { font-family: 'Playfair Display', serif; font-size: 2.2rem; margin-bottom: 20px; color: #333; }
 
         .btn-enter {
             margin-top: 10px; background: transparent; border: 1px solid var(--green-accent);
@@ -142,7 +141,6 @@
             .start-screen { grid-template-columns: repeat(2, 1fr); }
             .wide-mobile { grid-column: span 2; }
             .rose-decoration { width: 180px; } 
-            #nama-tamu-depan { font-size: 1.8rem; }
             .val { font-size: 1.8rem; }
         }
     </style>
@@ -160,9 +158,8 @@
 
     <div id="overlay">
         <div class="glass-card-invitation">
-            <div class="monogram">E&S</div>
+            <div class="monogram">Edward <br>&<br>Sevira</div>
             <p style="font-family: 'Montserrat', sans-serif; font-size: 0.7rem; letter-spacing: 5px; color: #bbb; text-transform: uppercase; margin-bottom: 10px;">The Wedding Invitation</p>
-            <h1 id="nama-tamu-depan">Tamu Undangan</h1>
             <button class="btn-enter" onclick="startInvitation()">Buka Undangan</button>
         </div>
     </div>
@@ -174,12 +171,19 @@
                 Maha Suci Allah yang telah menciptakan makhluk-Nya berpasang-pasangan. Kami bermaksud mengundang Bapak / Ibu / Saudara / i untuk menghadiri acara tasyakuran pernikahan putra dan putri kami.
             </p>
         </div>
-
+        
+        <div class="tile wide">
+            <p style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.1rem; line-height: 1.7; color: #555;">
+                "Di antara tanda-tanda (kebesaran)-Nya ialah bahwa Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri agar kamu merasa tenteram kepadanya. Dia menjadikan di antaramu rasa cinta dan kasih sayang. Sesungguhnya pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."
+            </p>
+            <h2>QS. AR-RUM: 21</h2>
+        </div>
+        
         <div class="tile large">
             <h2>Mempelai</h2>
             <div class="val" style="font-size: 1.8rem;">Edward Osmar Risqi</div>
             <p style="font-size: 0.8rem; color: #888; margin-bottom: 10px;">Putra dari Bapak Dwi Kuswanto (Alm) & Ibu Yuny Isnaenie</p>
-            <span style="font-size: 1.2rem; font-style: italic; color: var(--rose-accent);">dan</span>
+            <span style="font-size: 1.2rem; font-style: italic; color: var(--green-accent);">dan</span>
             <div class="val" style="font-size: 1.8rem;">Sevira Insani Amalia</div>
             <p style="font-size: 0.8rem; color: #888;">Putri dari Bapak Estu Karyawanto & Ibu Laminingsih</p>
         </div>
@@ -201,7 +205,7 @@
             <hr style="margin: 15px auto; width: 50%; border: 0.5px solid #eee;">
             <p style="font-size: 1.0rem; color: #222; font-weight: 600;">Rumah Mempelai Pria</p>
             <p style="font-size: 0.85rem; color: #888; margin-top: 4px;">Jl. Dr. Sutomo Gg. Damar RT 2/RW 3 No 201 Watesalit Batang</p>
-            <a href="https://maps.app.goo.gl/qH7YdYkLSWEdBtxU8" target="_blank" style="text-decoration: none; display: block; margin-top: 15px; color: var(--green-accent); font-weight: bold; font-size: 0.75rem; letter-spacing: 2px;">BUKA MAPS →</a>
+            <a href="https://maps.app.goo.gl/sfkZqRRsyrPVTXfg8" target="_blank" style="text-decoration: none; display: block; margin-top: 15px; color: var(--green-accent); font-weight: bold; font-size: 0.75rem; letter-spacing: 2px;">BUKA MAPS →</a>
         </div>
 
         <div class="tile wide wide-mobile">
@@ -226,7 +230,7 @@
             document.getElementById('overlay').style.transform = 'translateY(-100%)';
             const music = document.getElementById('bgMusic');
             music.play().catch(error => {
-                console.log("Autoplay dicegah oleh browser. Musik akan diputar setelah interaksi.");
+                console.log("Autoplay dicegah oleh browser.");
             });
             loadLogs();
         }
@@ -236,8 +240,9 @@
             const guestName = urlParams.get('to');
             if (guestName) {
                 const decodedName = decodeURIComponent(guestName.replace(/\+/g, ' '));
-                document.getElementById('nama-tamu-depan').innerText = decodedName;
-                document.getElementById('name').value = decodedName;
+                // Hanya mengisi kolom input nama jika ada parameter 'to' di URL
+                const nameInput = document.getElementById('name');
+                if (nameInput) nameInput.value = decodedName;
             }
         }
 
